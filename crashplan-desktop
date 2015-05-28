@@ -1,0 +1,9 @@
+#!/bin/bash
+
+USER=`id -u`
+X_SOCKET=/tmp/.X11-unix
+CP_VOLUME=crashplan_data
+
+ARGS="--rm -it --net=host -u $UID -v $X_SOCKET:$X_SOCKET -e DISPLAY=$DISPLAY --volumes-from $CP_VOLUME"
+
+docker run $ARGS crashplan_desktop
