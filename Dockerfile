@@ -1,15 +1,20 @@
 FROM debian:jessie
 
 # install prereqs
-RUN apt-get update && \
+RUN DEBIAN_FRONTEND=noninteractive && \
+    apt-get update -q && \
     apt-get -qy --no-install-recommends install \
         openjdk-7-jre \
         libcanberra-gtk-module \
         cpio \
-        curl
+        curl \
+        socat; \
+    apt-get autoremove --purge -qy && \
+    apt-get clean && \
+    rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
 
 WORKDIR /src
-ENV CRASHPLAN_VERSION="4.2.0" 
+ENV CRASHPLAN_VERSION="4.2.0"
 
 # add install script
 COPY crashplan-install.sh /src/

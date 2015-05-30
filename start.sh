@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# tunnel to service
+[ -z $SERVICE_ADDR ] && SERVICE_ADDR=service;
+socat TCP4-LISTEN:4243 TCP4:$SERVICE_ADDR:4243 &
 
 # start crashplan
 /opt/crashplan/bin/CrashPlanDesktop
